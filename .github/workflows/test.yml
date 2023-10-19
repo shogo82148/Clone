@@ -87,3 +87,23 @@ jobs:
           AUTOMATED_TESTING: 1
           RELEASE_TESTING: 1
 
+  windows:
+    runs-on: windows-latest
+    env:
+      PERL_USE_UNSAFE_INC: 0
+      AUTHOR_TESTING: 1
+      AUTOMATED_TESTING: 1
+      RELEASE_TESTING: 1
+      PERL_CARTON_PATH: $GITHUB_WORKSPACE/local
+
+    steps:
+      - uses: actions/checkout@v4
+      - run: perl -V
+      - name: install deps using cpanm
+        uses: perl-actions/install-with-cpanm@v1
+        with:
+          sudo: false
+          args: --sudo --installdeps .
+      - run: perl Makefile.PL
+      - run: make
+      - run: make test

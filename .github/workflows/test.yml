@@ -1,4 +1,4 @@
-name: 'Build & Test'
+name: "Build & Test"
 
 on:
   push:
@@ -9,10 +9,9 @@ on:
   pull_request:
 
 jobs:
-
-###
-### Fast Test on System Perl
-###
+  ###
+  ### Fast Test on System Perl
+  ###
 
   ubuntu-latest:
     runs-on: ubuntu-latest
@@ -36,10 +35,10 @@ jobs:
       - run: make
       - run: make test
 
-#
-###
-### linux testing multiple Perl versions
-###
+  #
+  ###
+  ### linux testing multiple Perl versions
+  ###
 
   linux:
     runs-on: ubuntu-latest
@@ -103,7 +102,7 @@ jobs:
         uses: perl-actions/install-with-cpanm@v1
         with:
           sudo: false
-          args: --sudo --installdeps .
+          args: --notest --installdeps .
       - run: perl Makefile.PL
       - run: make
       - run: make test
